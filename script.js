@@ -10,9 +10,20 @@ function addTask(){
     else{
         let li = document.createElement("li");
         li.innerHTML = inputBox.value;
+        li.draggable = true;
+        li.addEventListener("dragstart", handleDragStart);
+        li.addEventListener("dragover", handleDragOver);
+        li.addEventListener("drop", handleDrop);
+        li.addEventListener("dragend", handleDragEnd);
+
         listContainer.appendChild(li);
         let span = document.createElement("span");
         span.innerHTML = "\u00d7";
+        span.addEventListener("click",function (){
+            li.remove();
+            saveData();
+            lineBreak();
+        });
         li.appendChild(span);
 
         if(listContainer.children.length === 1){
@@ -22,6 +33,37 @@ function addTask(){
     }
     inputBox.value = "";
     saveData();
+}
+
+let draggedElement = null;
+function handleDragStart(e){
+    draggedElement = this;
+    this.classList.add("dragging");
+}
+
+function handleDragOver(e) {
+    e.preventDefault();
+    const draggingOver = getDraggingOverElement(this,e.clientY);
+    if(draggingOver && draggingOver != draggedElement){
+        listContainer.insertBefore(draggedElement, draggingOver);
+    }
+}
+
+function handleDrop(){
+    saveData();
+}
+
+function handleDragEnd(){
+    this,classList.remove("dragging");
+    saveData();
+}
+
+function getDraggingOverElement(target,mouseY){
+    const elements = Array.from(listContainer.children).filter(el => el !== draggedElement);
+    return elements.find(el => {
+        const rect = el.getBoundingClientRect();
+        return mouseY < rect.top + rect.height/2;
+    })
 }
 
 listContainer.addEventListener("click", function(e){
@@ -43,11 +85,13 @@ inputBox.addEventListener("keydown", function(e){
 });
 
 function saveData(){
-    localStorage.setItem("data", listContainer.innerHTML);
+    const tasks = Array.from(listContainer.children).map(item => item.innerHTML.split('<span')[0].trim());
+    localStorage.setItem("data", JSON.stringify(tasks));
 }
 
 function showTask(){
-    listContainer.innerHTML = localStorage.getItem("data");
+    const savedTasks = JSON.parse(localStorage.getItem("data") || "[]");
+    savedTasks.forEach(task => createTaskElement(task));
     lineBreak()
 }
 
