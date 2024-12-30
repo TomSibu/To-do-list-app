@@ -56,6 +56,10 @@ function lineBreak(){
         hline.style.display ='none';
         linebr.style.display = 'none';
     }
+    else{
+        hline.style.display = 'block';
+        linebr.style.display = 'block';
+    }
 }
 
 showTask();
