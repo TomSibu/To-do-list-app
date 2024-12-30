@@ -47,6 +47,9 @@ function handleDragOver(e) {
     if(draggingOver && draggingOver != draggedElement){
         listContainer.insertBefore(draggedElement, draggingOver);
     }
+    else if(!draggingOver){
+        listContainer.appendChild(draggedElement);
+    }
 }
 
 function handleDrop(){
@@ -60,10 +63,11 @@ function handleDragEnd(){
 
 function getDraggingOverElement(target,mouseY){
     const elements = Array.from(listContainer.children).filter(el => el !== draggedElement);
-    return elements.find(el => {
+    let draggingOver = elements.find(el => {
         const rect = el.getBoundingClientRect();
         return mouseY < rect.top + rect.height/2;
     })
+    return draggingOver || null;
 }
 
 listContainer.addEventListener("click", function(e){
