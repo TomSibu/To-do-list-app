@@ -70,7 +70,7 @@ ul li{
     user-select: none;
     cursor: pointer;
     position: relative;
-    background: #edeef0f7;
+    background: #e4e1e4f7;
     border-radius: 30px;
     padding-left: 44px;
     margin-bottom: 25px;
@@ -112,7 +112,7 @@ ul li span{
 }
 
 ul li span:hover{
-    background: #edeef0;
+    background: #d3d3d3;
 }
 
 .linebreak{
