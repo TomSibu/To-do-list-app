@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>To-Do-List App | HTML | CSS | Javascript</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="todo-app">
+                <h2>To-Do List <img src="images/item.png"></h2>
+                <div class="row">
+                    <input type="text" id="input-box" placeholder="Enter your task">
+                    <button onclick="addTask()">Add</button>
+                </div>
+                    <hr id="hline" style="display: none;">
+                    <br id="linebr" style="display: none;">
+                <ul id="list-container">
+                    <!--<li class="checked">Task 1</li>
+                    <li>Task 2</li>
+                    <li>Task 3</li>-->
+                </ul>
+            </div>
+        </div>
+        
+        <script src="script.js" async defer></script>
+    </body>
+</html>
